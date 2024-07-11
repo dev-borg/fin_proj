@@ -1,0 +1,99 @@
+
+§ Classes
+
+
+- Inheritance
+	° Definition
+		> Inheritance is a mechanism where a new class (subclass or derived class) inherits the attributes and methods of an existing class (superclass or base class).
+	° Key Points
+		> Reusability: Inheritance promotes code reuse by allowing a subclass to use methods and properties of a superclass.
+		> Hierarchical Relationship: Inheritance creates a parent-child relationship between classes.
+		> Method Overriding: Subclasses can override methods of the superclass to provide specific implementations.
+		> Single and Multiple Inheritance: Some languages (like Python) support multiple inheritance, where a class can inherit from more than one superclass.
+	° Example:
+		class Animal:
+		    def speak(self):
+			print("Animal speaks")
+
+		class Dog(Animal):
+		    def speak(self):
+			print("Dog barks")
+
+		d = Dog()
+		d.speak()  # Output: Dog barks
+
+- Composition
+	° Definition
+		> Composition is a design principle where a class is composed of one or more objects of other classes, meaning that the composed objects (components) are part of the containing object.
+	° Key Points
+		> Has-A Relationship: Composition represents a has-a relationship between objects.
+		> Flexible and Maintainable: It tends to be more flexible than inheritance and easier to maintain.
+		> Delegation: The composed objects can delegate tasks to other objects, promoting separation of concerns.
+	° Example
+		class Engine:
+		    def start(self):
+			print("Engine starts")
+
+		class Car:
+		    def __init__(self):
+			self.engine = Engine()
+
+		    def start(self):
+			self.engine.start()
+
+		c = Car()
+		c.start()  # Output: Engine starts
+
+- Comparison
+	° Feature:			Inheritance						Composition
+	° Relationship: 		Type	Is-A (hierarchical)				Has-A (part-whole)
+	° Reusability:			High (inherits methods and properties)			Moderate (reuse through contained objects)
+	° Flexibility:			Less flexible (tight coupling)				More flexible (loose coupling)
+	° Implementation Change:	Affects all subclasses					Affects only the specific class using the component
+	° Design:			Simple to implement but can lead to complex hierarchies	Encourages simpler, more modular design
+
+- self and cls (Python)
+	° both play essential roles in implementing inheritance and composition effectively in Python
+	° self
+		> Usage: Represents the instance of the class. It is used to access variables that belong to the instance.
+		> Context: self is used within instance methods to refer to instance attributes and methods.
+		> Relation to Inheritance: In inherited classes, self refers to the instance of the subclass, allowing it to access and modify attributes and methods from the superclass.
+		> Relation to Composition: In composition, self is used to manage the composed objects within the containing class.
+		> Example:
+			class Animal:
+			    def speak(self):
+				print("Animal speaks")
+
+			class Dog(Animal):
+			    def __init__(self, name):
+				self.name = name
+
+			    def speak(self):
+				print(f"{self.name} barks")
+
+			d = Dog("Buddy")
+			d.speak()  # Output: Buddy barks
+
+	° cls
+		> Usage: Represents the class itself. It is used in class methods that are not bound to an instance but to the class.
+		> Context: cls is used with @classmethod decorators to define methods that operate on the class rather than on instances.
+		> Relation to Inheritance: In inherited classes, cls refers to the subclass, allowing class methods to be polymorphic.
+		> Relation to Composition: cls is less directly related to composition since it deals more with class-level operations than object composition.
+		> Example:
+			class Animal:
+			    species = "Animal"
+
+			    @classmethod
+			    def show_species(cls):
+				print(f"This is a {cls.species}")
+
+			class Dog(Animal):
+			    species = "Dog"
+
+			Dog.show_species()  # Output: This is a Dog
+
+- Summary
+	° Inheritance is useful for creating a natural hierarchy and reusing code through an is-a relationship, but can lead to tight coupling and complex hierarchies.
+	° Composition offers more flexibility and modularity through a has-a relationship, promoting better maintainability and separation of concerns.
+	° self is crucial in instance methods for accessing instance-specific data
+	° cls is used in class methods to operate on class-level data and behaviors
